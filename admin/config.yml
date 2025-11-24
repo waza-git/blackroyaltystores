@@ -1,0 +1,41 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+media_folder: "img/uploads" # Media files will be stored in the repo under img/uploads
+public_folder: "img/uploads" # The src attribute for uploaded media will begin with /img/uploads
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - file: "content/settings.json"
+        label: "Global Settings"
+        name: "global_settings"
+        fields:
+          - {label: "WhatsApp Number", name: "whatsapp_number", widget: "string", hint: "Format: +234..."}
+          - {label: "Hero Headline", name: "hero_headline", widget: "string", default: "Embrace Your Royalty"}
+          - {label: "Hero Subtext", name: "hero_subtext", widget: "string", default: "Discover an exclusive collection crafted for the modern queen."}
+          - {label: "Hero Background Image", name: "hero_bg_image", widget: "image"}
+
+  - name: "products"
+    label: "Products"
+    folder: "content/products" # Storing products as individual files is better for scalability, but for this simple setup we'll use a file collection or just a list in a single file. 
+    # Actually, for a simple JSON store, a file collection with a list widget is easier to parse in vanilla JS without a build step.
+    # Let's use a single file for all products to keep the JS fetching simple (one fetch vs multiple).
+    files:
+      - file: "content/products.json"
+        label: "Product Catalog"
+        name: "product_catalog"
+        fields:
+          - label: "Products"
+            name: "products"
+            widget: "list"
+            fields:
+              - {label: "ID", name: "id", widget: "uuid"}
+              - {label: "Name", name: "name", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Price (Naira)", name: "price", widget: "number", value_type: "float"}
+              - {label: "Image", name: "image", widget: "image"}
+              - {label: "Category", name: "category", widget: "select", options: ["Wears", "Accessories", "Home Utensils", "Other"]}
+              - {label: "In Stock", name: "in_stock", widget: "boolean", default: true}

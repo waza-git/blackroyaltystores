@@ -1,0 +1,76 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Elegant Evening Gown",
+      "description": "A stunning gown for a night of luxury.",
+      "price": 199999,
+      "image": "https://images.unsplash.com/photo-1590487985440-7e04f0611a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wears",
+      "in_stock": true
+    },
+    {
+      "id": "2",
+      "name": "Luxury Leather Handbag",
+      "description": "Crafted for sophistication and style.",
+      "price": 299999,
+      "image": "https://images.unsplash.com/photo-1605380521408-ddc1e1948496?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Accessories",
+      "in_stock": true
+    },
+    {
+      "id": "3",
+      "name": "Sparkling Diamond Necklace",
+      "description": "A timeless piece for every occasion.",
+      "price": 499999,
+      "image": "https://images.unsplash.com/photo-1596707833446-be9a4914c81b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Accessories",
+      "in_stock": true
+    },
+    {
+      "id": "4",
+      "name": "Stiletto Elegance Heels",
+      "description": "Walk with confidence and grace.",
+      "price": 129999,
+      "image": "https://images.unsplash.com/photo-1542848135-24d16ae2831c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wears",
+      "in_stock": true
+    },
+    {
+      "id": "5",
+      "name": "Royal Chronograph Watch",
+      "description": "Timepiece of unparalleled elegance.",
+      "price": 349999,
+      "image": "https://images.unsplash.com/photo-1563299796-17596ed6b017?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Accessories",
+      "in_stock": true
+    },
+    {
+      "id": "6",
+      "name": "Handcrafted Ceramic Vase",
+      "description": "A touch of artistry for your home.",
+      "price": 89999,
+      "image": "https://images.unsplash.com/photo-1583907727092-d5951c6c97a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Home Utensils",
+      "in_stock": true
+    },
+    {
+      "id": "7",
+      "name": "Luxurious Silk Scarf",
+      "description": "Soft and elegant, perfect for any outfit.",
+      "price": 79999,
+      "image": "https://images.unsplash.com/photo-1596707833446-be9a4914c81b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Accessories",
+      "in_stock": true
+    },
+    {
+      "id": "8",
+      "name": "Aromatic Designer Candle",
+      "description": "Enrich your space with luxury scents.",
+      "price": 49999,
+      "image": "https://images.unsplash.com/photo-1511216124744-80721255d64d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Home Utensils",
+      "in_stock": true
+    }
+  ]
+}

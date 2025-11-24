@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Black Royalty Stores</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+            /* Primary background black */
+            color: #fff;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom Gold Color */
+        .text-gold {
+            color: #D4AF37;
+        }
+
+        /* A rich gold */
+        .bg-purple-700 {
+            background-color: #6B46C1;
+        }
+
+        /* A majestic purple */
+        .hover\:bg-gold:hover {
+            background-color: #D4AF37;
+        }
+
+        .hover\:text-gold:hover {
+            color: #D4AF37;
+        }
+
+        .hover\:border-gold:hover {
+            border-color: #D4AF37;
+        }
+
+        /* Cart drawer styles - replicated from index.html for consistency */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            /* Hidden by default */
+            width: 100%;
+            max-width: 400px;
+            height: 100%;
+            background-color: #1a1a1a;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .cart-drawer.open {
+            right: 0;
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+
+        .cart-overlay.open {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-black text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-90 shadow-lg py-4" id="navbar">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <!-- Logo -->
+            <a href="index.html" class="text-3xl font-bold text-gold logo-placeholder">Black Royalty</a>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gold focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Nav Links -->
+            <div class="hidden md:flex space-x-8 items-center" id="nav-links">
+                <a href="index.html" class="nav-link text-white hover:text-gold relative group">Home<span
+                        class="block h-0.5 bg-gold absolute bottom-0 left-0 w-0 group-hover:w-full transition-all duration-300"></span></a>
+                <div class="relative group">
+                    <a href="#" class="nav-link text-white hover:text-gold relative">Categories<span
+                            class="block h-0.5 bg-gold absolute bottom-0 left-0 w-0 group-hover:w-full transition-all duration-300"></span></a>
+                    <div
+                        class="absolute hidden group-hover:block bg-black shadow-lg py-2 mt-2 rounded-md transition-all duration-300 ease-in-out">
+                        <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Wears</a>
+                        <a href="#"
+                            class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Accessories</a>
+                        <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Home
+                            Utensils</a>
+                    </div>
+                </div>
+                <a href="#" class="nav-link text-white hover:text-gold relative group">About<span
+                        class="block h-0.5 bg-gold absolute bottom-0 left-0 w-0 group-hover:w-full transition-all duration-300"></span></a>
+                <a href="#" class="nav-link text-white hover:text-gold relative group">Contact<span
+                        class="block h-0.5 bg-gold absolute bottom-0 left-0 w-0 group-hover:w-full transition-all duration-300"></span></a>
+            </div>
+
+            <!-- Shopping Cart Icon -->
+            <div class="relative cursor-pointer" id="cart-icon">
+                <svg class="w-8 h-8 text-gold hover:text-purple-500 transition-colors duration-300" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                </svg>
+                <span id="cart-badge"
+                    class="absolute -top-2 -right-2 bg-purple-700 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden bg-black py-2 mt-2">
+            <a href="index.html" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Home</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Wears</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Accessories</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Home Utensils</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">About</a>
+            <a href="#" class="block px-4 py-2 text-white hover:bg-purple-700 hover:text-gold">Contact</a>
+        </div>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Product Details Section -->
+        <section class="py-16 bg-black">
+            <div class="container mx-auto px-4">
+                <div class="lg:flex gap-12">
+                    <!-- Product Image Gallery -->
+                    <div class="lg:w-1/2" data-aos="fade-right" data-aos-duration="1000">
+                        <!-- Main Image -->
+                        <div class="mb-6">
+                            <img id="main-product-image"
+                                src="https://images.unsplash.com/photo-1590487985440-7e04f0611a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Product Image" class="w-full h-auto rounded-lg shadow-lg">
+                        </div>
+                        <!-- Thumbnail Gallery -->
+                        <div class="grid grid-cols-4 gap-4">
+                            <img src="https://images.unsplash.com/photo-1590487985440-7e04f0611a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Thumbnail 1"
+                                class="w-full h-24 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-gold transition-all duration-300 thumbnail-image">
+                            <img src="https://images.unsplash.com/photo-1590487985440-7e04f0611a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Thumbnail 2"
+                                class="w-full h-24 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-gold transition-all duration-300 thumbnail-image">
+                            <img src="https://images.unsplash.com/photo-1590487985440-7e04f0611a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Thumbnail 3"
+                                class="w-full h-24 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-gold transition-all duration-300 thumbnail-image">
+                            <img src="https://images.unsplash.com/photo-1590487985440-7e04f0611a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Thumbnail 4"
+                                class="w-full h-24 object-cover rounded-md cursor-pointer border-2 border-transparent hover:border-gold transition-all duration-300 thumbnail-image">
+                        </div>
+                    </div>
+
+                    <!-- Product Information -->
+                    <div class="lg:w-1/2 mt-10 lg:mt-0" data-aos="fade-left" data-aos-duration="1000">
+                        <!-- CMS: Product Title -->
+                        <h1 class="text-5xl font-bold text-white mb-4 product-title" id="product-title">Loading...</h1>
+                        <!-- CMS: Product Price -->
+                        <p class="text-gold text-4xl font-bold mb-6 product-price" id="product-price">...</p>
+
+                        <!-- CMS: Product Description -->
+                        <div class="prose prose-invert max-w-none text-gray-300 leading-relaxed mb-8 product-description-full"
+                            id="product-description">
+                            <p>Loading product details...</p>
+                        </div>
+
+                        <!-- Size Selector -->
+                        <div class="mb-6">
+                            <label for="size-select"
+                                class="block text-gray-200 text-lg font-semibold mb-3">Size:</label>
+                            <select id="size-select"
+                                class="w-full md:w-1/2 p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-purple-700 text-white">
+                                <option value="S">Small</option>
+                                <option value="M">Medium</option>
+                                <option value="L">Large</option>
+                                <option value="XL">X-Large</option>
+                            </select>
+                        </div>
+
+                        <!-- Quantity Selector -->
+                        <div class="mb-8">
+                            <label for="quantity-select"
+                                class="block text-gray-200 text-lg font-semibold mb-3">Quantity:</label>
+                            <input type="number" id="quantity-select" value="1" min="1"
+                                class="w-24 p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-purple-700 text-white text-center">
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button id="add-to-cart-btn"
+                            class="add-to-cart-btn bg-purple-700 text-white font-semibold py-4 px-8 rounded-full text-xl w-full hover:bg-gold hover:text-black transition-all duration-300">Add
+                            to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Products (Optional) -->
+        <section class="py-20 bg-black border-t border-gray-800">
+            <div class="container mx-auto px-4">
+                <h2 class="text-5xl font-bold text-center mb-16 text-gold" data-aos="fade-up">You Might Also Like</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    <!-- Related Product Card 1 (Example) -->
+                    <div class="product-card bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6 hover:shadow-xl transition-shadow duration-300"
+                        data-aos="fade-up" data-aos-delay="100">
+                        <a href="product-details.html?id=2" class="block">
+                            <img src="https://images.unsplash.com/photo-1605380521408-ddc1e1948496?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Luxury Handbag" class="w-full h-64 object-cover mb-4 rounded-md product-image">
+                        </a>
+                        <h3 class="text-2xl font-bold text-white mb-2 product-title">Luxury Leather Handbag</h3>
+                        <p class="text-gray-400 text-sm mb-4 product-description">Crafted for sophistication and style.
+                        </p>
+                        <p class="text-gold text-3xl font-bold mb-4 product-price">₦299,999</p>
+                        <button
+                            class="add-to-cart-btn bg-purple-700 text-white px-6 py-3 rounded-full font-semibold w-full hover:bg-gold hover:text-black transition-all duration-300">Add
+                            to Cart</button>
+                    </div>
+                    <!-- Related Product Card 2 (Example) -->
+                    <div class="product-card bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6 hover:shadow-xl transition-shadow duration-300"
+                        data-aos="fade-up" data-aos-delay="200">
+                        <a href="product-details.html?id=3" class="block">
+                            <img src="https://images.unsplash.com/photo-1596707833446-be9a4914c81b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+                                alt="Diamond Necklace" class="w-full h-64 object-cover mb-4 rounded-md product-image">
+                        </a>
+                        <h3 class="text-2xl font-bold text-white mb-2 product-title">Sparkling Diamond Necklace</h3>
+                        <p class="text-gray-400 text-sm mb-4 product-description">A timeless piece for every occasion.
+                        </p>
+                        <p class="text-gold text-3xl font-bold mb-4 product-price">₦499,999</p>
+                        <button
+                            class="add-to-cart-btn bg-purple-700 text-white px-6 py-3 rounded-full font-semibold w-full hover:bg-gold hover:text-black transition-all duration-300">Add
+                            to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 py-16 text-gray-300">
+        <div class="container mx-auto px-4 grid md:grid-cols-4 gap-12">
+            <!-- Column 1: Quick Links -->
+            <div>
+                <h4 class="text-2xl font-bold text-gold mb-6">Quick Links</h4>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="hover:text-gold transition-colors duration-300">Home</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors duration-300">Categories</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors duration-300">About Us</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors duration-300">Contact Us</a></li>
+                    <li><a href="#" class="hover:text-gold transition-colors duration-300">FAQs</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 2: Contact Info -->
+            <div>
+                <h4 class="text-2xl font-bold text-gold mb-6">Contact Info</h4>
+                <address class="space-y-3 not-italic">
+                    <p>123 Royalty Lane, Luxury City, 90210</p>
+                    <p>Email: <a href="mailto:info@blackroyalty.com"
+                            class="hover:text-gold transition-colors duration-300">info@blackroyalty.com</a></p>
+                    <p>Phone: <a href="tel:+1234567890" class="hover:text-gold transition-colors duration-300">+1 (234)
+                            567-890</a></p>
+                </address>
+            </div>
+
+            <!-- Column 3: Social Media -->
+            <div>
+                <h4 class="text-2xl font-bold text-gold mb-6">Follow Us</h4>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-gold transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.505 1.492-3.89 3.776-3.89 1.094 0 2.24.195 2.24.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C17.368 21.246 22 17.079 22 12z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gold transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12.315 2c2.43 0 2.784.002 3.797.048.854.041 1.404.178 1.83.342.573.213.9.478 1.2.78.297.303.562.63.778.969.362.6.58 1.35.663 2.5.047.4.058.461.058 1.119 0 2.12-.014 2.358-.058 2.768-.085.748-.298 1.407-.663 2.01-.216.339-.481.666-.778.969-.296.303-.623.567-.97.778-.604.363-1.354.58-2.501.664-.4.047-.46.058-1.119.058-.456 0-1.077-.008-2.074-.027-.996-.019-1.39-.03-2.607-.03-1.217 0-1.611.011-2.607.03-.997.019-1.618.027-2.074.027-.659 0-.72-.011-1.119-.058-.854-.041-1.404-.178-1.83-.342-.573-.213-.9-.478-1.2-.78-.297-.303-.562-.63-.778-.969-.362-.6-.58-1.35-.663-2.5-.047-.4-.058-.461-.058-1.119 0-2.12.014-2.358.058-2.768.085-.748.298-1.407.663-2.01.216-.339.481-.666.778-.969.296.303.623.567.97.778.604.363 1.354-.58 2.501-.664.4-.047.46-.058 1.119-.058zM12 7.18c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM12 15.39a3.39 3.39 0 100-6.78 3.39 3.39 0 000 6.78z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gold transition-colors duration-300">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M8.29 20.251c-.698 0-1.358-.27-1.85-.747-.492-.477-.768-1.135-.768-1.821 0-.687.276-1.345.768-1.822.492-.477 1.152-.747 1.85-.747.697 0 1.357.27 1.85.747.492.477.768 1.135.768 1.821 0 .687-.276 1.345-.768 1.822-.493.477-1.153.747-1.85.747zM22 4.09c-.815.113-1.579.46-2.259.982.556.126 1.127.195 1.696.195.57 0 1.14-.07 1.696-.195zm-2.906 1.673c-.569.125-1.139.195-1.696.195-2.128 0-3.92-1.258-4.707-3.033-.424-.972-1.002-1.89-1.85-2.744C10.74 0 9.043 0 7.397 0c-.822 0-1.59.112-2.316.326C4.475.64 3.75 1.05 3.033 1.547.962 3.033 0 5.488 0 8.019v8.006c0 2.531.962 4.986 3.033 6.472 1.017.697 2.14 1.246 3.328 1.666 1.187.42 2.404.629 3.639.629 2.128 0 3.92-1.258 4.707-3.033.424-.972 1.002-1.89 1.85-2.744.848-.854 1.426-1.772 1.85-2.744.787-1.775.492-4.148-.768-5.836C20.617 8.163 21.066 6.83 22 6.136c-.493-.069-1.006-.115-1.536-.14zM12 2.746c-.697 0-1.357.27-1.85.747-.492.477-.768 1.135-.768 1.821 0 .687.276 1.345.768 1.822.492.477 1.152.747 1.85.747.697 0 1.357-.27 1.85-.747.492-.477.768-1.135.768-1.821 0-.687-.276-1.345-.768-1.822-.493-.477-1.153-.747-1.85-.747z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Column 4: Newsletter Signup -->
+            <div>
+                <h4 class="text-2xl font-bold text-gold mb-6">Newsletter</h4>
+                <p class="mb-4">Stay updated with our latest collections and exclusive offers.</p>
+                <form>
+                    <input type="email" placeholder="Your email address"
+                        class="w-full p-3 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:border-purple-700 text-white mb-4">
+                    <button type="submit"
+                        class="bg-purple-700 text-white font-semibold py-3 px-6 rounded-md w-full hover:bg-gold hover:text-black transition-colors duration-300">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-12 text-gray-500 text-sm">
+            &copy; 2025 Black Royalty Stores. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Interactive Product Cart Drawer -->
+    <div id="cart-drawer" class="cart-drawer p-6 flex flex-col">
+        <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
+            <h3 class="text-3xl font-bold text-gold">Your Cart</h3>
+            <button id="close-cart-button" class="text-gold hover:text-purple-500 transition-colors duration-300">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div id="cart-items" class="flex-grow space-y-6 overflow-y-auto pr-2">
+            <!-- Cart items will be injected here by JavaScript -->
+            <p class="text-gray-400 text-center" id="empty-cart-message">Your cart is empty.</p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-gray-700">
+            <div class="flex justify-between items-center text-2xl font-bold mb-6">
+                <span class="text-white">Total:</span>
+                <span class="text-gold" id="cart-total">$0.00</span>
+            </div>
+            <button id="whatsapp-checkout-btn"
+                class="bg-purple-700 text-white font-semibold py-4 px-6 rounded-full w-full text-lg hover:bg-gold hover:text-black transition-all duration-300">Proceed
+                on WhatsApp</button>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay"></div>
+
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
